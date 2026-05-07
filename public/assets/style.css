@@ -99,6 +99,106 @@ a:hover { color: var(--accent-hover); }
     max-width: 520px;
 }
 
+.container-wide {
+    max-width: 1060px;
+}
+
+.search-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.search-form input[type=text] {
+    flex: 1;
+    min-width: 0;
+    padding: 0.5rem 0.75rem;
+    font: inherit;
+    font-size: 0.92rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--surface);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.search-form input[type=text]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+}
+
+.datetime-tz-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.datetime-tz-row input[type=datetime-local] {
+    flex: 1;
+    min-width: 0;
+}
+
+.tz-select {
+    padding: 0.5rem 0.6rem;
+    font: inherit;
+    font-size: 0.92rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.tz-select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+}
+
+.tz-select-sm {
+    font-size: 0.78rem;
+    padding: 0.22rem 0.35rem;
+}
+
+.schedule-form {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.schedule-form input[type=datetime-local] {
+    padding: 0.28rem 0.4rem;
+    font: inherit;
+    font-size: 0.8rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--surface);
+    width: 9.5rem;
+}
+
+.schedule-form input[type=datetime-local]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.15);
+}
+
+table.data td.nowrap {
+    white-space: nowrap;
+}
+
+table.data code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.82rem;
+    background: var(--bg);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+}
+
 .page-title {
     font-size: 1.5rem;
     font-weight: 600;
@@ -203,6 +303,14 @@ a:hover { color: var(--accent-hover); }
 .btn-link:hover {
     color: var(--accent-hover);
     text-decoration: underline;
+}
+
+.btn-link-danger {
+    color: var(--error-text);
+}
+
+.btn-link-danger:hover {
+    color: #7f1d1d;
 }
 
 .back-link {

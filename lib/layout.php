@@ -1,6 +1,7 @@
 <?php
 
-function render_header(string $title, ?array $staff = null): void {
+function render_header(string $title, ?array $staff = null, string $extra_class = ''): void {
+    $container_class = trim('container ' . $extra_class);
     ?>
 <!doctype html>
 <html lang="en">
@@ -22,7 +23,7 @@ function render_header(string $title, ?array $staff = null): void {
         <?php endif ?>
     </div>
 </nav>
-<main class="container">
+<main class="<?= h($container_class) ?>">
     <?php
 }
 
