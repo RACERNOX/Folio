@@ -2,6 +2,50 @@
 
 A small document-sharing app. You'll be extending it with features that customers have been asking for.
 
+---
+
+## What Was Built (candidate additions)
+
+All three requested features are implemented on the `feature/folio-features` branch.
+
+### Feature 1 — Scheduled Publishing
+- Staff can set a publish date and time on any document at creation
+- Staff can update the schedule later using the inline editor in the admin table
+- Recipients who hit a share link before the publish time see a "Not yet available" page (HTTP 403)
+- All scheduling actions are logged to `audit_log`
+- Timezone selector included — input is converted to UTC on save, compared in UTC at view time
+
+### Feature 2 — Human-Readable Document IDs (Slugs)
+- Every document gets a short readable ID on creation: `{title-slug}-{4-char-random}` e.g. `offer-letter-a1b2`
+- Slug is stored alongside the existing share token — it does **not** replace the token
+- Token remains the access control boundary (unguessable); slug is for staff reference and communication
+- Collision handling built in: retries with a new random suffix if slug already exists
+- Slug shown in admin table; included in audit log on document creation
+
+### Feature 3 — Search by Title
+- Search box on admin page filters the document list by title prefix
+- Uses `LIKE 'term%'` — fast, no dependencies, right fit for an internal tool where staff know their own document titles
+- GET-based so the filtered URL is bookmarkable
+- Filtered results still show "Create share" links per document
+
+### Extra Improvements
+- **Timezone bug fix** — browser `datetime-local` was being interpreted as Chicago time regardless of the user's actual timezone. Fixed by adding a timezone selector and storing `publish_tz` per document.
+- **Admin table layout** — widened container and cleaned up table styles to prevent columns from overflowing
+- **Delete document** — staff can delete a document from the admin table; related shares are removed in a transaction; action is audit logged
+
+### Migration System
+Schema changes go through numbered SQL files in `migrations/`. `seed.php` runs them in order after `schema.sql` on every startup. `schema.sql` was never edited.
+
+Migrations added:
+- `migrations/001_add_publish_at.sql`
+- `migrations/002_add_slug.sql`
+- `migrations/003_add_publish_tz.sql`
+
+### Tests
+Extended `tests/test.php` with 10 new tests covering all three features. Full suite: **11 passed, 0 failed**.
+
+---
+
 ## Setup
 
 Requires Docker (with Compose). That's it — PHP, SQLite, and everything else ship inside the container.
