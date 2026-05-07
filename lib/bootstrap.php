@@ -43,6 +43,24 @@ function random_token(int $bytes = 16): string {
     return bin2hex(random_bytes($bytes));
 }
 
+function generate_slug(string $title): string {
+    $base = strtolower(preg_replace('/[^a-z0-9]+/i', '-', $title));
+    $base = trim($base, '-');
+    if ($base === '') {
+        $base = 'doc';
+    }
+    return $base . '-' . substr(bin2hex(random_bytes(3)), 0, 4);
+}
+
+function unique_slug(string $title): string {
+    do {
+        $slug = generate_slug($title);
+        $stmt = db()->prepare('SELECT 1 FROM documents WHERE slug = ?');
+        $stmt->execute([$slug]);
+    } while ($stmt->fetch());
+    return $slug;
+}
+
 function h(string $s): string {
     return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 }
