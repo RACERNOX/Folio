@@ -186,7 +186,7 @@ render_header('Admin', $staff, 'container-wide');
             <label for="publish_at">Publish at (optional — leave blank to publish immediately)</label>
             <div class="datetime-tz-row">
                 <input type="datetime-local" id="publish_at" name="publish_at">
-                <select name="tz" class="tz-select" aria-label="Timezone">
+                <select name="tz" id="create_tz" class="tz-select" aria-label="Timezone">
                     <?php foreach ($TIMEZONES as $value => $label): ?>
                         <option value="<?= h($value) ?>"<?= $value === 'America/Chicago' ? ' selected' : '' ?>><?= h($label) ?></option>
                     <?php endforeach ?>
@@ -266,14 +266,15 @@ render_header('Admin', $staff, 'container-wide');
 <script>
 (function () {
     var browserTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    document.querySelectorAll('.tz-select').forEach(function (sel) {
-        for (var i = 0; i < sel.options.length; i++) {
-            if (sel.options[i].value === browserTz) {
-                sel.selectedIndex = i;
+    var createSel = document.getElementById('create_tz');
+    if (createSel) {
+        for (var i = 0; i < createSel.options.length; i++) {
+            if (createSel.options[i].value === browserTz) {
+                createSel.selectedIndex = i;
                 break;
             }
         }
-    });
+    }
 })();
 </script>
 
